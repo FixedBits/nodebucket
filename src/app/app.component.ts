@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
     <!-- This router-outlet displays the content of the BaseLayout or AuthLayout components -->
     <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [],
 })
-export class AppComponent {
-}
+export class AppComponent {}

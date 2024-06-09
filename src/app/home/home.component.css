@@ -1,0 +1,14 @@
+.card {
+  border: none;
+  padding: 10px;
+  margin: 2px;
+}
+
+.card p {
+  font-size: 1.6rem;
+}
+
+.center-image {
+  display: flex;
+  justify-content: center;
+}

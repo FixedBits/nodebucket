@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node ./bin/www",
+    "start": "node server/app.js",
     "build": "ng build",
-    "server": "nodemon ./bin/www",
+    "server": "nodemon server/app.js",
     "client": "ng serve --open"
   },
   "private": true,
@@ -26,6 +26,8 @@
     "mongodb": "^5.7.0",
     "ngx-cookie-service": "^16.0.0",
     "rxjs": "~7.8.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
