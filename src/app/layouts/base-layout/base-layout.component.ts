@@ -2,6 +2,7 @@
  * Title: base-layout.component.ts
  * Author: Professor Krasso
  * Date: 06/09/2024
+ * Description: base-layout typescript
  */
 
 // imports statements

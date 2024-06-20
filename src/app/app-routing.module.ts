@@ -2,23 +2,41 @@
  * Title: app-routing.module.ts
  * Author: Professor Krasso
  * Date: 06/09/2024
+ * Description: Defining and managing routes of the app
  */
 
-// imports statements
+// Importing necessary modules from Angular core and Angular router
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+// Importing the BaseLayoutComponent
 import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component';
+
+// Importing the HomeComponent
 import { HomeComponent } from './home/home.component';
+
+// Importing the TasksComponent
 import { TasksComponent } from './tasks/tasks.component';
+
+// Importing the authentication guard
 import { authGuard } from './shared/auth.guard';
 
-// routes array with a path, component, and title for each route in the application (e.g. home, about, contact, et
+// Importing the ContactComponent
+import { ContactComponent } from './contact/contact.component';
+
+// Importing the AboutComponent
+import { AboutComponent } from './about/about.component';
+
+
+// Defining the routes for this module
 const routes: Routes = [
   {
+    // The default path ('') is mapped to the BaseLayoutComponent
     path: '',
     component: BaseLayoutComponent,
     children: [
       {
+        // The '' and 'home' paths are mapped to the HomeComponent
         path: '',
         component: HomeComponent,
         title: 'Nodebucket: Home', // title for the home page
@@ -29,6 +47,17 @@ const routes: Routes = [
         title: 'Nodebucket: Home',
       },
       {
+        // The 'contact' path is mapped to the ContactComponent
+        path: 'contact',
+        component: ContactComponent
+      },
+      {
+        // The 'about' path is mapped to the AboutComponent
+        path: 'about',
+        component: AboutComponent
+      },
+      {
+        // The 'tasks' path is mapped to the TasksComponent and is protected by the authGuard
         path: 'tasks',
         component: TasksComponent,
         canActivate: [authGuard],
@@ -36,15 +65,16 @@ const routes: Routes = [
     ],
   },
   {
-    // path for the security module (e.g. login, register, forgot password, etc.)
+    // The 'security' path is mapped to the SecurityModule
     path: 'security',
     loadChildren: () =>
       import('./security/security.module').then((m) => m.SecurityModule),
   },
 ];
 
+// Decorator that marks a class as an NgModule and supplies configuration metadata
 @NgModule({
-  // imports the RouterModule and defines the routes array and other options (e.g. useHash, enableTracing, scrollPositionRestoration)
+  // The forRoot method is used to configure the router at the application's root level with the routes array and other options
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true,
@@ -52,6 +82,8 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled',
     }),
   ],
+  // Making the RouterModule available to other parts of the app
   exports: [RouterModule],
 })
+// Exporting the AppRoutingModule class so it can be imported into other parts of the application
 export class AppRoutingModule {}

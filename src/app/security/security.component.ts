@@ -2,10 +2,11 @@
  * Title: security.component.ts
  * Author: Professor Krasso
  * Date: 06/09/2024
+ * Description: security component typescript
  */
 
 // imports statements
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-security',
@@ -14,8 +15,11 @@ import { Component, NgModule } from '@angular/core';
     <!-- the code here as been added to test the security module -->
     <!-- once you start building the security module, you can remove this code, but leave the router-outlet -->
 
-    <router-outlet></router-outlet>
+          <router-outlet></router-outlet>
   `,
-  styles: [],
+  styles: [
+  ]
 })
-export class SecurityComponent {}
+export class SecurityComponent {
+
+}

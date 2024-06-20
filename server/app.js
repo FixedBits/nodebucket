@@ -2,6 +2,7 @@
  * Title: app.js
  * Author: Victor Soto
  * Date: 06/09/2024
+ * Description: Server for the app
  */
 
 "use strict";
@@ -13,7 +14,6 @@ const path = require("path");
 
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express"); // Import swaggerUi
-
 const employeeRoute = require("./routes/employee-route");
 
 // Create the Express app
@@ -65,8 +65,8 @@ app.use(function (err, req, res, next) {
   });
 });
 
-// Express.js listening on port 3000
-const port = process.env.PORT || 3000;
+// Express.js listening on port 3001
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

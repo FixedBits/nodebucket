@@ -29,17 +29,18 @@
 
   <div class="collapse navbar-collapse" id="navbarResponsive">
 
-    <ul class="navbar-nav ms-auto p-2">
+    <ul class="navbar-nav ms-auto p-3">
+
       <li class="item">
         <a routerLink="/home" class="nav-link">Home</a>
       </li>
-      <!-- Use routerLink="filepath/name" instead of href="" once page is created -->
+
       <li class="item">
-        <a href="#" class="nav-link">Contact</a>
+        <a routerLink="/contact" class="nav-link">Contact</a>
       </li>
-      <!-- Use routerLink="filepath/name" instead of href="" once page is created -->
+
       <li class="item">
-        <a href="#" class="nav-link">About Us</a>
+        <a routerLink="/about" class="nav-link">About Us</a>
       </li>
 
       <li *ngIf="!isSignedIn">

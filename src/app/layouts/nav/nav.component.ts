@@ -2,6 +2,7 @@
  * Title: nav.component.ts
  * Author: Professor Krasso
  * Date: 06/09/2024
+ * Description: nav component typescript
  */
 
 // imports statements

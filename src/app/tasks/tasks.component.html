@@ -1,1 +1,80 @@
-<p>tasks works!</p>
+<!--
+  Title: tasks.component.html
+  Arthur: Professor Krasso
+  Updated by Victor Soto
+  Date: 06/12/2024
+  Description: task page layout
+-->
+
+<body>
+
+  <!-- Extra space at the top -->
+  <br><br>
+
+  <!-- Main container for tasks -->
+  <div class="tasks-container">
+
+    <!-- Heading for the tasks section -->
+    <h1>My Tasks</h1>
+
+    <!-- Form for adding new tasks -->
+    <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm); taskForm.reset();" class="tasks-form">
+
+      <!-- Input field for entering a new task -->
+      <input type="text" name="task" ngModel required placeholder="Enter a new task" class="my-task-input">
+
+      <!-- Submit button for the form -->
+      <div class="task-form-button">
+        <input type="submit" [disabled]="!taskForm.valid" value="Add Task">
+      </div>
+
+    </form>
+
+    <!-- Container for the tasks columns -->
+    <div class="tasks-columns">
+
+      <!-- Column for tasks that are to do -->
+      <div class="tasks-column">
+        <h2>To Do</h2>
+
+        <div class="tasks-box">
+
+          <!-- Message displayed when there are no tasks to do -->
+          <div *ngIf="todo.length === 0 || !todo" class="no-tasks">
+            No tasks to do yet!
+          </div>
+
+          <!-- Display each task in the 'to do' list -->
+          <div *ngFor="let item of todo" class="tasks-card">
+            {{ item.text }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Column for tasks that are done -->
+      <div class="tasks-column">
+        <h2>Done</h2>
+
+        <div class="tasks-box">
+
+          <!-- Message displayed when there are no tasks done -->
+          <div *ngIf="done.length === 0 || !done" class="no-tasks">
+            No tasks done yet!
+          </div>
+
+          <!-- Display each task in the 'done' list -->
+          <div *ngFor="let item of done" class="tasks-card">
+            {{ item.text }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>

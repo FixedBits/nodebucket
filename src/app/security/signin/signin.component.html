@@ -1,40 +1,53 @@
 <!--
-  Title: Nodebucket
+  Title: signin.component.html
   Arthur: Professor Krasso
   Date: 06/09/2024
   Description: signin component
 -->
 
+<!-- Main container -->
 <div class="container">
 
+  <!-- Row for center alignment and top margin -->
   <div class="row justify-content-center mt-5">
 
+    <!-- Column settings for different screen sizes -->
     <div class="col-lg-4 col-md-6 col-sm-6">
 
+      <!-- Card with shadow effect -->
       <div class="card shadow">
 
+        <!-- Card title with bottom border -->
         <div class="card-title text-center border-bottom">
+          <!-- Heading for the sign in form -->
           <h2 class="p-3">Employee Sign In</h2>
         </div>
 
-        <!-- Error message -->
+        <!-- Error message, shown only if 'errorMessage' is truthy -->
         <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          <!-- Display the error message -->
           {{ errorMessage }}
         </div>
 
+        <!-- Card body -->
         <div class="card-body">
 
+          <!-- Sign in form with form group and submit event handler -->
           <form [formGroup]="signinForm" (ngSubmit)="signin(); signinForm.reset();">
 
+            <!-- Employee ID input field -->
             <div class="mb-4">
               <label for="empId" class="form-label">Employee ID:</label>
               <input type="text" class="form-control" id="empId" formControlName="empId" />
             </div>
 
+            <!-- Submit button -->
             <div class="d-grid">
               <button type="submit" class="btn btn-dark">
+                <!-- Button text, changes to 'Loading...' when 'isLoading' is truthy -->
                 <span *ngIf="!isLoading">Sign in</span>
 
+                <!-- Loading spinner, shown only when 'isLoading' is truthy -->
                 <div *ngIf="isLoading">
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
                 </div>
@@ -47,6 +60,7 @@
 
       </div>
 
+      <!-- Return link -->
       <a routerLink="/" class="text-dark text-underline-hover">Return</a>
 
     </div>
