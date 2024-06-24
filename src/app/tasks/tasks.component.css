@@ -74,3 +74,13 @@ body {
   min-height: 100vh;
   background-color: rgb(51, 51, 51);
 }
+
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

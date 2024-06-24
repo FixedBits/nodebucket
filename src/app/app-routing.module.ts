@@ -1,6 +1,7 @@
 /**
  * Title: app-routing.module.ts
  * Author: Professor Krasso
+ * Author: Victor Soto
  * Date: 06/09/2024
  * Description: Defining and managing routes of the app
  */
@@ -27,6 +28,9 @@ import { ContactComponent } from './contact/contact.component';
 // Importing the AboutComponent
 import { AboutComponent } from './about/about.component';
 
+// Importing the not-found component
+import { NotFoundComponent } from './not-found/not-found.component';
+
 
 // Defining the routes for this module
 const routes: Routes = [
@@ -49,12 +53,14 @@ const routes: Routes = [
       {
         // The 'contact' path is mapped to the ContactComponent
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        title: 'Nodebucket: Contact',
       },
       {
         // The 'about' path is mapped to the AboutComponent
         path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
+        title: 'Nodebucket: About Us'
       },
       {
         // The 'tasks' path is mapped to the TasksComponent and is protected by the authGuard
@@ -62,6 +68,12 @@ const routes: Routes = [
         component: TasksComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'not-found',
+        component: NotFoundComponent,
+        title: 'Nodebucket: Not Found'
+             },
+
     ],
   },
   {
@@ -70,6 +82,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./security/security.module').then((m) => m.SecurityModule),
   },
+  {
+      // Redirects to not-found page
+    path: '**',
+    redirectTo: '/not-found'
+  }
 ];
 
 // Decorator that marks a class as an NgModule and supplies configuration metadata

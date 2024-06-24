@@ -10,6 +10,8 @@ import { NgModule } from '@angular/core'; // Angular's core functionality
 import { BrowserModule } from '@angular/platform-browser'; // Module for running app in a browser
 import { HttpClientModule } from '@angular/common/http'; // Module for making HTTP requests
 import { FormsModule } from '@angular/forms'; // Module for building forms
+import { DragDropModule } from '@angular/cdk/drag-drop'; // Module for enabling drag&drop use
+
 
 // Importing application-specific modules
 import { AppRoutingModule } from './app-routing.module'; // Handles routing for the app
@@ -25,7 +27,8 @@ import { FooterComponent } from './layouts/footer/footer.component'; // Footer c
 import { HomeComponent } from './home/home.component'; // Home page component
 import { TasksComponent } from './tasks/tasks.component'; // Tasks component
 import { ContactComponent } from './contact/contact.component'; // Contact page component
-import { AboutComponent } from './about/about.component'; // About page component
+import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './not-found/not-found.component'; // About page component
 
 // Defining the AppModule
 @NgModule({
@@ -41,6 +44,7 @@ import { AboutComponent } from './about/about.component'; // About page componen
     TasksComponent,
     ContactComponent,
     AboutComponent,
+    NotFoundComponent,
   ],
   imports: [
     // List of modules to import into this module
@@ -50,6 +54,7 @@ import { AboutComponent } from './about/about.component'; // About page componen
     HttpClientModule,
     SecurityModule,
     FormsModule,
+    DragDropModule,
   ],
   providers: [], // List of dependency injection providers
   bootstrap: [AppComponent],
