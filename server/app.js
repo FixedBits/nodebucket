@@ -39,7 +39,7 @@ const swaggerOptions = {
   apis: ["./server/routes/*.js"],
 };
 
-// Initialize Swagger
+// Initialize Swagger.
 const swaggerSpecification = swaggerJsdoc(swaggerOptions);
 
 // Serve Swagger documentation - Swagger UI middleware.
