@@ -5,18 +5,18 @@
  * Date: 6/3/2024
  * Description: Employee routes, use database SwaggerUI/
  */
-"use strict"; // This line enables strict mode in JavaScript, which helps catch common coding mistakes and "unsafe" actions.
+"use strict"; // This line enables strict mode in JavaScript, which helps catch common coding mistakes and unsafe actions.
 
 // Require statements
 const express = require("express"); // This line imports the Express.js library, which is used to build web servers.
 const router = express.Router(); // This line creates a new router object that can handle different routes for your web server.
 const createError = require("http-errors"); // This line imports a library that helps create HTTP error objects.
-const { mongo } = require("../utils/mongo"); // This line imports a utility for working with MongoDB, a type of database.
+const { mongo } = require("../utils/mongo"); // This line imports a utility for working with MongoDB.
 
 const Ajv = require("ajv"); // This line imports the Ajv library, which is used to validate JSON data.
 const { ObjectId } = require("mongodb"); // This line imports a specific function from the MongoDB library that generates unique identifiers for database entries.
 
-const ajv = new Ajv(); // This line creates a new instance of the Ajv object. This object can be used to create validation rules for your data.
+const ajv = new Ajv(); // This line creates a new instance of the Ajv object.
 
 /**
  * @openapi
@@ -96,6 +96,57 @@ router.get("/:empId", (req, res, next) => {
  * @throws { 400 error } - if the employee id is not a number
  * @throws { 404 error } - if no tasks are found
  */
+
+/**
+ * @openapi
+ * /api/employees/{empId}/tasks:
+ *   get:
+ *     tags:
+ *       - Employees
+ *     summary: Retrieve tasks of an employee by ID
+ *     parameters:
+ *       - in: path
+ *         name: empId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The employee ID
+ *     responses:
+ *       200:
+ *         description: A single employee's tasks object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 empId:
+ *                   type: integer
+ *                 todo:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       text:
+ *                         type: string
+ *                 done:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       text:
+ *                         type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Tasks not found for the employee ID
+ *       500:
+ *         description: Internal server error
+ */
+
 router.get("/:empId/tasks", (req, res, next) => {
   try {
     let { empId } = req.params;
@@ -142,6 +193,46 @@ const taskSchema = {
   required: ["text"],
   additionalProperties: false,
 };
+
+/**
+ * @openapi
+ * /api/employees/{empId}/tasks:
+ *   post:
+ *     tags:
+ *       - Employees
+ *     summary: Create a new task for an employee by ID
+ *     parameters:
+ *       - in: path
+ *         name: empId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The employee ID
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: A new task was created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Employee not found
+ *       500:
+ *         description: Internal server error
+ */
 
 router.post("/:empId/tasks", (req, res, next) => {
   try {
@@ -205,6 +296,55 @@ const tasksSchema = {
   // ... code omitted for brevity ...
 };
 
+/**
+ * @openapi
+ * /api/employees/tasks/{empId}:
+ *   put:
+ *     tags:
+ *       - Employees
+ *     summary: Update tasks of an employee by ID
+ *     parameters:
+ *       - in: path
+ *         name: empId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The employee ID
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               todo:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     text:
+ *                       type: string
+ *               done:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     text:
+ *                       type: string
+ *     responses:
+ *       204:
+ *         description: No Content
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Employee not found
+ *       500:
+ *         description: Internal server error
+ */
+
 // This code listens for requests to change a task for a specific employee.
 router.put("/tasks/:empId", (req, res, next) => {
   try {
@@ -251,15 +391,46 @@ router.put("/tasks/:empId", (req, res, next) => {
           { $set: { todo: tasks.todo, done: tasks.done } }
         );
 
-      // It finishes by saying "The tasks were updated successfully".
+      // Set the response status to 204 (No Content)
       res.status(204).send();
     }, next);
   } catch (err) {
-    // If something went wrong, it says "An error occurred" and shows what the error is.
+    // If something goes wrong, it logs the error.
     console.error("err", err);
     next(err);
   }
 });
+
+/**
+ * @openapi
+ * /api/employees/{empId}/tasks/{taskId}:
+ *   delete:
+ *     tags:
+ *       - Employees
+ *     summary: Delete a specific task of an employee by ID
+ *     parameters:
+ *       - in: path
+ *         name: empId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The employee ID
+ *       - in: path
+ *         name: taskId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The task ID
+ *     responses:
+ *       204:
+ *         description: No Content
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Employee or task not found
+ *       500:
+ *         description: Internal server error
+ */
 
 // This part of the code listens for requests to remove a task for a specific employee.
 router.delete("/:empId/tasks/:taskId", (req, res, next) => {
@@ -303,14 +474,14 @@ router.delete("/:empId/tasks/:taskId", (req, res, next) => {
         .collection("employees")
         .updateOne({ empId: empId }, { $set: { todo: todo, done: done } });
 
-      // It finishes by saying "The task was removed successfully".
+      // Set the response status to 204 (No Content)
       res.status(204).send();
     }, next);
   } catch (err) {
-    // If something went wrong, it says "An error occurred" and shows what the error is.
+    // If something goes wrong, it logs the error.
     console.error("err", err);
     next(err);
   }
 });
-// This makes the code available to other parts of the application.
+// This makes the code available (exports) to other parts of the application.
 module.exports = router; // end module.exports = router

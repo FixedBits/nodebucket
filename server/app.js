@@ -32,7 +32,7 @@ const swaggerOptions = {
     info: {
       version: "1.0.0",
       title: "Nodebucket APIs",
-      description: "API for finding employees by ID",
+      description: "API for employees by ID",
     },
   },
   apis: ["./server/routes/*.js"],
