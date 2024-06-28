@@ -24,7 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../dist/nodebucket")));
 app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
-app.use("/api/employees", employeeRoute);
 
 // Define swagger options.
 const swaggerOptions = {
@@ -39,7 +38,7 @@ const swaggerOptions = {
   apis: ["./server/routes/*.js"],
 };
 
-// Initialize Swagger
+// Initialize Swagger.
 const swaggerSpecification = swaggerJsdoc(swaggerOptions);
 
 // Serve Swagger documentation - Swagger UI middleware.
@@ -63,6 +62,12 @@ app.use(function (err, req, res, next) {
     message: err.message,
     stack: req.app.get("env") === "development" ? err.stack : undefined,
   });
+});
+
+// Express.js listening on port 3001
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 module.exports = app; // export the Express application
